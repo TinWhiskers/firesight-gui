@@ -1,0 +1,37 @@
+{
+    "name" : "backgroundSubtractor", 
+    "description" : "The FirePick backgroundSubtractor stage wraps the OpenCV BackgroundSubtractor class. Background subtraction is excellent for detecting the orientation and offset of objects newly placed on a known background. For pick-and-place operations, this stage can help determine angular and offset error of a picked part. The stage output image is the binary foreground mask computed by the background subtractor.",
+    "parameters" : [
+	    { 
+	       "name":"method",
+           "options":["MOG","MOG2","ABSDIFF"],
+	       "default":"MOG",
+	       "description":"The default absdiff works well for static images. Method MOG2 may be more useful for video."
+	    }, 
+	    {
+	       "name":"varThreshold",
+	       "default":16,
+	       "description":"OpenCV recommends the default of 16. Higher values reduce sensitivity and therefore noise."
+	    }, 
+	    {
+	       "name":"bShadowDetection",
+	       "default":"true",
+	       "description":"(MOG2) The OpenCV and FireSight default is true, but false may be more useful given the lack of shadows in most pick-and-place images."
+	    },
+	    {
+	       "name":"background",
+	       "default":"",
+	       "description":"(MOG2) If provided, this specifies the path to a fixed background image to compare."
+	    },
+	    {
+	       "name":"history",
+	       "default":0,
+	       "description":"(MOG2) If non-zero, specifies the number of preceding images to aggregate as the background for comparison. The default is 0. A non-zero value really only matters for video pipelines that need to compute an ever-changing background from the most recent video frames."
+	    },
+	    {
+	       "name":"learningRate",
+	       "default":-1,
+	       "description":""
+	    }
+    ]
+}

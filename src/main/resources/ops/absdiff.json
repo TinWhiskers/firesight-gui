@@ -1,0 +1,10 @@
+{
+    "name" : "absdiff", 
+    "description" : "FireSight wrapper for OpenCV absdiff, which takes the per-channel absolute difference of two images. FireSight stage compares specified image with current pipeline image and changes output to the absolute difference of the two.",
+    "parameters" : [
+	    { 
+	       "name":"path",
+	       "default":"",
+	       "description":"Path to second image"
+	    }    ]
+}

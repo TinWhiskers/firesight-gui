@@ -1,0 +1,17 @@
+{
+    "name" : "warpPerspective", 
+    "description" : "Applies a perspective transformation to an image.",
+    "parameters" : [
+	    { 
+	       "name":"borderMode ",
+	       "default":"BORDER_DEFAULT",
+           "options":["BORDER_DEFAULT","BORDER_CONSTANT","BORDER_REPLICATE","BORDER_ISOLATED","BORDER_REFLECT","BORDER_REFLECT_101","BORDER_WRAP"],
+	       "description":"pixel extrapolation method (BORDER_CONSTANT or BORDER_REPLICATE)."
+	    }, 
+	    {
+	       "name":"model",
+	       "default":"",
+	       "description":"Name of stage whose model has a JSON \"calibrate\" object having cameraMatrix and distCoeffs.W"
+	    }
+    ]
+}
