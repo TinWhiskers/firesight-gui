@@ -1,0 +1,26 @@
+{
+    "name" : "blur", 
+    "description" : "Blurs image.",
+    "parameters" : [
+        {
+            "name":"ksize.width",
+            "default":13,
+            "description":"pixel width of blurring kernel"
+        },
+        {
+            "name":"ksize.height",
+            "default":13,
+            "description":"pixel height of blurring kernel"
+        },
+        {
+            "name":"anchor.x",
+            "default":-1,
+            "description":"x center of blurring kernel"
+        },
+        {
+            "name":"anchor.y",
+            "default":-1,
+            "description":"y center of blurring kernel"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "name" : "threshold", 
+    "description" : "The FireSight wrapper for OpenCV threshold compares each pixel to a threshold value and replaces the pixel with a value determined by the threshold type.",
+    "parameters" : [
+        {
+            "name":"type",
+            "default":"THRESH_BINARY",
+            "options":["THRESH_BINARY","THRESH_BINARY_INV"],
+            "description":"Default value is THRESH_BINARY."
+	    },
+	    { 
+	       "name":"thresh",
+	       "default":128,
+	       "description":"Threshold value, normally between 0 and 255. Default is OTSU, which will add the THRESH_OTSU flag to type for automatic thresholding using Otsu's method. See Example 5."
+	    }, 
+	    {
+	       "name":"gray",
+	       "default":true,
+	       "description":"Default is true, which converts image to grayscale. If false, each channel will be thresholded, unless Otsu's method is chosen, in which the image is autoatically converted to grayscale. (FireSight only)"
+	    }, 
+	    {
+	       "name":"maxval",
+	       "default":255,
+	       "description":"For THRESH_BINARY and THRESH_BINARY_INV, the replacement value for the type. Default is 255, which is ideal for creating image masks for 8-bit images."
+	    }
+    ]
+}
