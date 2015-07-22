@@ -1,9 +1,9 @@
 package io.tinwhiskers.firesight.gui;
 
-import java.util.HashMap;
-
 import io.tinwhiskers.firesight.gui.Pipeline.Stage;
 import io.tinwhiskers.firesight.gui.Pipeline.Stage.ParameterValue;
+
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -27,9 +27,35 @@ public class PipelineTreeModel extends DefaultTreeModel {
         return node;
     }
     
-    public void removeStage(StageTreeNode stageTreeNode) {
-        removeNodeFromParent((MutableTreeNode) stageTreeNode);
-        pipeline.removeStage(stageTreeNode.getStage());
+    public void removeStage(StageTreeNode node) {
+        removeNodeFromParent((MutableTreeNode) node);
+        pipeline.removeStage(node.getStage());
+    }
+    
+    public void moveStageUp(StageTreeNode node) {
+        int index = getIndexOfChild(root, node) - 1;
+        if (index < 0) {
+            return;
+        }
+        removeNodeFromParent((MutableTreeNode) node);
+        insertNodeInto(node, root, index);
+        List<Stage> stages = pipeline.getStages();
+        Stage stage = node.getStage();
+        stages.remove(stage);
+        stages.add(index, stage);
+    }
+    
+    public void moveStageDown(StageTreeNode node) {
+        int index = getIndexOfChild(root, node) + 1;
+        if (index >= root.getChildCount()) {
+            return;
+        }
+        removeNodeFromParent((MutableTreeNode) node);
+        insertNodeInto(node, root, index);
+        List<Stage> stages = pipeline.getStages();
+        Stage stage = node.getStage();
+        stages.remove(stage);
+        stages.add(index, stage);
     }
     
     public Pipeline getPipeline() {

@@ -71,6 +71,12 @@ public class Main extends JFrame {
         JButton btnNewButton = new JButton(delStage);
         toolBar.add(btnNewButton);
         
+        JButton moveUpButton = new JButton(moveStageUp);
+        toolBar.add(moveUpButton);
+        
+        JButton moveDownButton = new JButton(moveStageDown);
+        toolBar.add(moveDownButton);
+        
         JScrollPane scrollPane = new JScrollPane();
         pipelinePanel.add(scrollPane, BorderLayout.CENTER);
         
@@ -221,14 +227,10 @@ public class Main extends JFrame {
             if (op == null) {
                 return;
             }
-            final Stage stage = new Stage(op);
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    pipelineTreeModel.addStage(stage);
-                    pipelineTree.expandPath(new TreePath(pipelineTreeModel.getRoot()));
-                    generateOutput();
-                }
-            });
+            Stage stage = new Stage(op);
+            pipelineTreeModel.addStage(stage);
+            pipelineTree.expandPath(new TreePath(pipelineTreeModel.getRoot()));
+            generateOutput();
         }
     };
     
@@ -237,6 +239,25 @@ public class Main extends JFrame {
             TreePath path = pipelineTree.getSelectionPath();
             StageTreeNode stageTreeNode = (StageTreeNode) path.getPathComponent(1);
             pipelineTreeModel.removeStage(stageTreeNode);
+            generateOutput();
+        }
+    };
+    
+    private Action moveStageUp = new AbstractAction("^") {
+        public void actionPerformed(ActionEvent e) {
+            TreePath path = pipelineTree.getSelectionPath();
+            StageTreeNode stageTreeNode = (StageTreeNode) path.getPathComponent(1);
+            pipelineTreeModel.moveStageUp(stageTreeNode);
+            generateOutput();
+        }
+    };
+    
+    private Action moveStageDown = new AbstractAction("v") {
+        public void actionPerformed(ActionEvent e) {
+            TreePath path = pipelineTree.getSelectionPath();
+            StageTreeNode stageTreeNode = (StageTreeNode) path.getPathComponent(1);
+            pipelineTreeModel.moveStageDown(stageTreeNode);
+            generateOutput();
         }
     };
     

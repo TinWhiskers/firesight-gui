@@ -1,0 +1,21 @@
+{
+    "name" : "minAreaRect", 
+    "description" : "Compute minimum area RotatedRect for a range of pixel intensity values in a selected image channel. This FireSight operation relies on OpenCV minAreaRect.",
+    "parameters" : [
+        { 
+           "name":"min",
+           "default":1,
+           "description":"Minimum pixel value to consider."
+        }, 
+        {
+           "name":"max",
+           "default":255,
+           "description":"Maximum pixel value to consider."
+        }, 
+        {
+           "name":"channel",
+           "default":0,
+           "description":"Index of BGR image channel."
+        }
+    ]
+}
