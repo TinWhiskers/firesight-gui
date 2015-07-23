@@ -1,0 +1,46 @@
+{
+    "name" : "calcOffset", 
+    "description" : "FireSight calcOffset compares the pipeline image with a baseline template image and computes the XY offset between the two images. It is implemented using OpenCV matchTemplate but the implementation is unique to FireSight.",
+    "parameters" : [
+	    { 
+	       "name":"template",
+	       "default":"",
+	       "description":"File path of baseline template image"
+	    }, 
+	    {
+	       "name":"offsetColor",
+	       "default":[32,32,255],
+	       "description":"JSON array of [B,G,R] colors for marking offset rectangle, which is only drawn if offset is non-zero. Subsequent op-drawRects stage is required to actually draw the offset rectangle."
+	    }, 
+	    {
+	       "name":"xtol",
+	       "default":32,
+	       "description":"X-axis +/- image comparison tolerance. Default is 32 pixels. Smaller values will result in higher accuracy. Larger tolerances are less accurate but let you detect larger offsets."
+	    }, 
+	    {
+	       "name":"ytol",
+	       "default":32,
+	       "description":"Y-axis +/- image comparison tolerance. Default is 32 pixels. Smaller values will result in higher accuracy. Larger tolerances are less accurate but let you detect larger offsets."
+	    }, 
+	    {
+	       "name":"channels",
+	       "default":[],
+	       "description":"JSON array of integers that specifies the image channels used for comparison. The default is [], which specifies a grayscale conversion. Use [0,1,2] for a BGR comparison. Use [2] for a red channel comparison."
+	    }, 
+	    {
+	       "name":"minval",
+	       "default":0.7,
+	       "description":"Minimum matching correlation value (0 is no match, 1 is perfect match). The default is 0.7"
+	    }, 
+	    {
+	       "name":"corr",
+	       "default":0.99,
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"output",
+	       "default":"current",
+	       "description":"Undocumented"
+	    }
+    ]
+}
