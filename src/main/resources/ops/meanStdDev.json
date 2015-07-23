@@ -1,0 +1,11 @@
+{
+    "name" : "meanStdDev", 
+    "description" : "FireSight wrapper for OpenCV mesnStdDev, which computes the mean and standard deviation of image pixel intensities.",
+    "parameters" : [
+	    { 
+	       "name":"path",
+	       "default":"",
+	       "description":"Path to second image"
+	    }
+    ]
+}
