@@ -6,6 +6,21 @@
             "name":"model",
             "default":"",
             "description":"name of stage that generates rects model to be drawn"
+        },
+        {
+        	"name":"radius",
+        	"default":"0",
+        	"description":" if radius>0, draw of a circle of the given radius instead of rectangle. Default is 0"
         }
-    ]
+	    {
+	       "name":"color",
+	       "default":[-1 -1 -1 255],
+	       "description":"JSON array corresponding to cv::Scalar with 1-4 elements ([-1 -1 -1 -1] default)"
+	    },
+	    {
+	       "name":"thickness",
+	       "default":2,
+	       "description":"Undocumented"
+	    }
+	]
 }
