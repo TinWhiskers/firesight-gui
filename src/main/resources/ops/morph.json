@@ -1,0 +1,40 @@
+{
+    "name" : "morph", 
+    "description" : "Perform morphological operation (erode, dilate, etc..)",
+    "parameters" : [
+	    { 
+	       "name":"mop",
+	       "default":"MORPH_OPEN",
+	       "options":[
+	       "MORPH_ERODE",
+	       "MORPH_DILATE",
+	       "MORPH_OPEN",
+	       "MORPH_CLOSE",
+	       "MORPH_GRADIENT",
+	       "MORPH_TOPHAT",
+	       "MORPH_BLACKHAT"
+	       ],
+	       "description":"Morphological operation"
+	    }, 
+	    {
+	       "name":"kwidth",
+	       "default":3,
+	       "description":"kernel width"
+	    }, 
+	    {
+	       "name":"kheight",
+	       "default":3,
+	       "description":"kernel height"
+	    }, 
+	    {
+	       "name":"shape",
+	       "default":"MORPH_ELLIPSE",
+	       "options":[
+	       		"MORPH_ELLIPSE",
+	       		"MORPH_CROSS",
+	       		"MORPH_RECT",
+	       ],
+	       "description":"Shape of the kernel"
+	    }
+    ]
+}
