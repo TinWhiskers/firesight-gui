@@ -1,0 +1,45 @@
+{
+    "name" : "matchGrid", 
+    "description" : "FireSight matchGrid works much like standard chessboard OpenCV Camera Calibration. However, matchGrid is designed to for use in pick-and-place camera calibration, which has slightly different requirements (flat, almost 2D space used for motion planning measurement) than standard chessboard calibration (large 3D space used for location/pose detection). The FireSight matchGrid stage matches recognized features from a preceding FireSight stage to a rectangular grid and computes camera calibration parameters from matched features. This stage requires a preceding stage such as op-matchTemplate to recognize the features to be matched. This separation allows for free experimentation on what constitutes the grid (e.g., holes, diamonds, crosshairs, etc.). Recognized features should be provided to matchGrid via the FireSight model pipeline as a JSON array of rects such as those returned by op-matchTemplate.",
+    "parameters" : [
+	    { 
+	       "name":"model",
+	       "default":"",
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"calibrate",
+	       "default":"best",
+	       "options":[
+	       "best",
+	       "tile1",
+	       "tile2",
+	       "tile3",
+	       "tile4",
+	       "tile5",
+	       "ellipse",
+	       ],
+	       "description":"Default is best, which chooses the best known matching algorithm. See calibration options"
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[255,255,255],
+	       "description":"JSON BGR color array to mark unused image features. Default is [255,255,255]."
+	    },
+	    {
+	       "name":"scale",
+	       "default":[1,1],
+	       "description":"JSON [X,Y] array of scaling coefficients for calibration. Currently only used by ellipse, default value is [1,1]"
+	    }, 
+	    {
+	       "name":"sep",
+	       "default":[5,5],
+	       "description":"JSON [X,Y] array of horizontal (x) and vertical (y) grid separation. Default is [5,5] for a 5mm grid"
+	    }, 
+	    {
+	       "name":"tolerance",
+	       "default":0.35,
+	       "description":"used to match features in a row or column. Default is 0.35."
+	    }, 
+    ]
+}

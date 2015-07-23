@@ -1,0 +1,11 @@
+{
+    "name" : "imread", 
+    "description" : "Set working image to contents of given file using imread",
+    "parameters" : [
+	    { 
+	       "name":"path",
+	       "default":"image file path",
+	       "description":""
+	    }
+    ]
+}
