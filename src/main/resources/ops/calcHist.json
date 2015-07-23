@@ -1,0 +1,41 @@
+{
+    "name" : "calcHist", 
+    "description" : "The FireSight calcHist stage generates a histogram for the current pipeline image. This stage is primarily diagnostic and provides only a subset of the functionality of OpenCV calcHist.",
+    "parameters" : [
+	    { 
+	       "name":"accumulate",
+	       "default":"false",
+	       "description":"If true, bin values for separate channels will be summed. Default is false"
+	    }, 
+	    {
+	       "name":"channels",
+	       "default":[],
+	       "description":"is a JSON vector of channel indexes. The default is [], which will use all image channels. For an RGB image, this will be identical to [0 1 2]. For a monochrome image, this will be identical to [0]. The maximum number of channels in the array is 4."
+	    }, 
+	    {
+	       "name":"dims",
+	       "default":1,
+	       "description":"histogram dimensions. Default is 1. At this time, only 1 dimension is supported."
+	    }, 
+	    {
+	       "name":"binMin",
+	       "default":1,
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"binMax",
+	       "default":0,
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"rangeMax",
+	       "default":256,
+	       "description":"maximum (exclusive)( value to use for range. Default is 256"
+	    }, 
+	    {
+	       "name":"rangeMin",
+	       "default":0,
+	       "description":"minimum (inclusive) value to use for range. Default is 0"
+	    }
+    ]
+}
