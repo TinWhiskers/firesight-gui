@@ -1,0 +1,16 @@
+{
+    "name" : "drawKeypoints", 
+    "description" : "OpenCV drawKeypoints wrapper.  Draws the found matches of keypoints from two images.",
+    "parameters" : [
+	    { 
+	       "name":"model",
+	       "default":"",
+	       "description":"name of stage that generates keypoints model to be drawn"
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[-1 -1 -1 -1],
+	       "description":"JSON array corresponding to cv::Scalar with 1-4 elements ([-1 -1 -1 -1] default)"
+	    }
+    ]
+}
