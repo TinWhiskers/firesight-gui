@@ -1,0 +1,41 @@
+{
+    "name" : "Circle", 
+    "description" : "Draws a circle.",
+    "parameters" : [
+	    { 
+	       "name":"center",
+	       "default":[0,0],
+	       "description":"Center of the circle"
+	    }, 
+	    {
+	       "name":"radius",
+	       "default":0,
+	       "description":"Radius of the circle"
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[0,0,0],
+	       "description":"Circle color"
+	    }, 
+	    {
+	       "name":"thickness",
+	       "default":1,
+	       "description":"Thickness of the circle outline, if positive. Negative thickness means that a filled circle is to be drawn"
+	    }, 
+	    {
+	       "name":"lineType",
+	       "default":8,
+	       "description":"Type of the circle boundary. 8=connected line. 4=connected line. CV_AA=antialiased line."
+	    }, 
+	    {
+	       "name":"shift",
+	       "default":0,
+	       "description":"Number of fractional bits in the coordinates of the center and in the radius value "
+	    }, 
+	    {
+	       "name":"fill",
+	       "default":[-1,-1,-1],
+	       "description":"Undocumented"
+	    }
+    ]
+}
