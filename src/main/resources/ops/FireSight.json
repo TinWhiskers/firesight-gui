@@ -1,0 +1,5 @@
+{
+    "name" : "FireSight", 
+    "description" : "Record FireSight configuration and version information to the pipeline stage model.",
+    "parameters" : []
+}

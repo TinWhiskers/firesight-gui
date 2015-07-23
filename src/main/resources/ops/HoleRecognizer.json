@@ -1,0 +1,26 @@
+{
+    "name" : "HoleRecognizer", 
+    "description" : "Recognize holes(s) of given range in diameter within image using amended MSER algorithm.",
+    "parameters" : [
+	    { 
+	       "name":"diamMin",
+	       "default":0,
+	       "description":"minimum diameter in pixels"
+	    }, 
+	    {
+	       "name":"diamMax",
+	       "default":0,
+	       "description":"maximum diameter in pixels"
+	    }, 
+	    {
+	       "name":"show",
+	       "default":"NONE",
+	       "options":[
+	       		"NONE",
+	       		"MSER",
+	       		"MATCHES",
+	       ],
+	       "description":"update working image and 0:do not show recognized holes; 1:show MSER hole candidates (see below); 2:show matched holes only (fuchsia)"
+	    }
+    ]
+}
