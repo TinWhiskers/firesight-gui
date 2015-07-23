@@ -1,0 +1,65 @@
+{
+    "name" : "matchTemplate", 
+    "description" : "OpenCV matchTemplate wrapper with FireSight extensions. Correlation-based template matching is quite powerful. The frequency spectrum of a template is multiplied by the frequency spectrum of an image to obtain the correlation. Maxima (or minima, depending on the method) indicate the candidates for matching. If the images to be recognized are all in a flat plane orthogonal to the camera, there is little or no need to account for perspective skew or near/far size adjustments. For this reason, matchTemplate alone can be used quite effectively in a great majority pick-and-place use cases.",
+    "parameters" : [
+	    { 
+	       "name":"method",
+	       "default":,
+	       "options":[
+	       		"CV_TM_SQDIFF",
+	       		"CV_TM_SQDIFF_NORMED",
+	       		"CV_TM_CCORR",
+	       		"CV_TM_CCORR_NORMED",
+	       		"CV_TM_CCOEFF",
+	       		"CV_TM_CCOEFF_NORMED"
+	       ],
+	       "description":""
+	    }, 
+	    {
+	       "name":"border",
+	       "default":"Default",
+	       "options":[
+	       		"Default",
+	       		"Constant",
+	       		"Replicate",
+	       		"Isolated",
+	       		"Reflect",
+	       		"Reflect 101",
+	       		"Wrap",
+	       	],
+	       "description":""
+	    }, 
+	    {
+	       "name":"template",
+	       "default":"",
+	       "description":"Path to image template to match"
+	    }, 
+	    {
+	       "name":"output ",
+	       "default":,
+	       "options":[
+	       		"current",
+	       		"input",
+	       		"output",
+	       		"corr",
+	       		"",
+	       ],
+	       "description":" FireSight: Image for stage output. Default is current, which displays working image. To use input image, use input; to see correlation image, use corr."
+	    }, 
+	    {
+	       "name":"threshold ",
+	       "default":0.7,
+	       "description":"FireSight: If maxVal is below this value, then no matches will be reported. Default is 0.7."
+	    }, 
+	    {
+	       "name":"corr",
+	       "default":0.85,
+	       "description":"FireSight: Normalized recognition threshold in the interval [0,1]. Used to determine best match of candidates. For CV_TM_CCOEFF, CV_TM_CCOEFF_NORMED, CV_TM_CCORR, and CV_TM_CCORR_NORMED methods, this is a minimum threshold for positive recognition; for all other methods, it is a maximum threshold. Default is 0.85."
+	    }, 
+	    {
+	       "name":"angle",
+	       "default":0,
+	       "description":"FireSight: Match template at specified angle in degrees"
+	    }
+    ]
+}
