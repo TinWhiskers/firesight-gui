@@ -1,0 +1,66 @@
+{
+    "name" : "MSER", 
+    "description" : "OpenCV MSER wrapper with FireSight filtering extensions.  Maximally stable extremal region extractor.  Used as a method of blob detection in images. ",
+    "parameters" : [
+	    { 
+	       "name":"delta",
+	       "default":5,
+	       "description":"delta, in the code, it compares (size_{i}-size_{i-delta})/size_{i-delta}. Larger delta yields fewer images. Default 5"
+	    }, 
+	    {
+	       "name":"minArea",
+	       "default":60,
+	       "description":"prune the blobs whose area is smaller than minArea. Default 60"
+	    }, 
+	    {
+	       "name":"maxArea",
+	       "default":14400,
+	       "description":"prune the blobs whose area is bigger than maxArea. Default 14400"
+	    }, 
+	    {
+	       "name":"maxVariation",
+	       "default":025,
+	       "description":"prune the area have simliar size to its children. Default 0.25"
+	    }, 
+	    {
+	       "name":"minDiversity",
+	       "default":0.2,
+	       "description":"trace back to cut off mser with diversity < min_diversity. Default 0.2"
+	    }, 
+	    {
+	       "name":"maxEvolution",
+	       "default":200,
+	       "description":" for color image, the evolution steps. Default 200"
+	    }, 
+	    {
+	       "name":"areaThreshold",
+	       "default":1.01,
+	       "description":"the area threshold to cause re-initialize. Default 1.01"
+	    }, 
+	    {
+	       "name":"minMargin",
+	       "default":0.003,
+	       "description":"ignore too small margin. Default 0.003"
+	    }, 
+	    {
+	       "name":"edgeBlurSize",
+	       "default":5,
+	       "description":"the aperture size for edge blur. Default 5"
+	    }, 
+	    {
+	       "name":"mask",
+	       "default":,
+	       "description":"If provided, a JSON object (x,y,width,height) specifies MSER mask rectangle. By default, entire image is processed."
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[-1,-1,-1,-1],
+	       "description":"if provided, matched regions will be colored with BGR Scalar having 1-4 values. For alternating colors, use: [-1,-1,-1,-1]"
+	    },
+	    {
+	       "name":"detect",
+	       "default":"",
+	       "description":"Use \"keyPoints\" or \"Rotatedrect\" to return a JSON object to the stage model for each detected MSER region. Each KeyPoint is determined from eigenvectors and covariance matrix of region. The size field of the KeyPoint is calculated from the number of points in the region: size = 2*sqrt(region.size()/π).  Each RotatedRect is calculated by minAreaRect()"
+	    }
+    ]
+}
