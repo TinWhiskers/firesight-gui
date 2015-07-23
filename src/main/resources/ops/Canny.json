@@ -1,0 +1,26 @@
+{
+    "name" : "Canny", 
+    "description" : "Finds edges in an image using the Canny86 algorithm.",
+    "parameters" : [
+	    { 
+	       "name":"threshold1",
+	       "default":0,
+	       "description":"first threshold for the hysteresis procedure."
+	    }, 
+	    {
+	       "name":"threshold2",
+	       "default":50,
+	       "description":"second threshold for the hysteresis procedure."
+	    }, 
+	    {
+	       "name":"apertureSize",
+	       "default":3,
+	       "description":"aperture size for the Sobel() operator."
+	    }, 
+	    {
+	       "name":"L2gradient",
+	       "default":"false",
+	       "description":"a flag, indicating whether a more accurate l2 norm = sqrt((dI/dx)^2+(dI/dy)^2 should be used to calculate the image gradient magnitude (L2gradient=true), or whether the default L1 norm = |dI/dx|+|dI/dy| is enough (L2gradient=false)"
+	    }
+    ]
+}
