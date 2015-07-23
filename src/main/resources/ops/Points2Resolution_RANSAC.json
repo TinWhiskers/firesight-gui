@@ -1,0 +1,31 @@
+{
+    "name" : "points2resolution_RANSAC", 
+    "description" : "Determine the px/mm resolution of the image from a regular pattern (e.g. smt tape with 4mm separation of the holes).  The input to this stage are points (e.g. circles detected by the op HoughCircles stage).",
+    "parameters" : [
+	    { 
+	       "name":"threshold1",
+	       "default":1.2,
+	       "description":"Threshold for line through circle centers"
+	    }, 
+	    {
+	       "name":"threshold2",
+	       "default":1.2,
+	       "description":"Second RANSAC run to get the pattern in the circle centers forming the line"
+	    }, 
+	    {
+	       "name":"confidence",
+	       "default":0.999999999999,
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"separation",
+	       "default":4.0,
+	       "description":"Actual distance.  If using this with SMT tape, keep this at 4.0"
+	    }, 
+	    {
+	       "name":"model",
+	       "default":,
+	       "description":"Set this to the name of the houghCircles stage which must be placed before this RANSAC stage."
+	    }
+    ]
+}
