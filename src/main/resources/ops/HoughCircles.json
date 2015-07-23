@@ -1,0 +1,41 @@
+{
+    "name" : "HoughCircles", 
+    "description" : "Detect circle(s) of given range in diameter within image using Hough transform",
+    "parameters" : [
+	    { 
+	       "name":"diamMin",
+	       "default":0,
+	       "description":"minimum diameter in pixels"
+	    }, 
+	    {
+	       "name":"diamMax",
+	       "default":0,
+	       "description":"maximum diameter in pixels"
+	    }, 
+	    {
+	       "name":"houghcircles_dp",
+	       "default":1,
+	       "description":""
+	    }, 
+	    {
+	       "name":"houghcircles_minDist",
+	       "default":10,
+	       "description":"Minimum distance between detected centers"
+	    }, 
+	    {
+	       "name":"houghcircles_param1",
+	       "default":80,
+	       "description":"Upper threshold for the internal Canny edge detector"
+	    }, 
+	    {
+	       "name":"houghcircles_param2",
+	       "default":10,
+	       "description":"Threshold for center detection."
+	    }, 
+	    {
+	       "name":"show",
+	       "default":"false",
+	       "description":"update working image and 0:do not show detected circles; 1:show detected circles;"
+	    }
+    ]
+}
