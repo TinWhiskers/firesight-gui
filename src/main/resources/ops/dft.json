@@ -1,0 +1,16 @@
+{
+    "name" : "dft", 
+    "description" : "Discrete Fourier Transform OpenCV dft wrapper.",
+    "parameters" : [
+	    { 
+	       "name":"depth",
+	       "default":"CV_8U",
+	       "description":"Undocumented"
+	    }, 
+	    {
+	       "name":"flags",
+	       "default":[],
+	       "description":"JSON array of strings representing bits to be OR'd"
+	    }
+    ]
+}
