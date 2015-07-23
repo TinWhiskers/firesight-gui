@@ -1,0 +1,16 @@
+{
+    "name" : "PSNR", 
+    "description" : "The PSNR FireSight stage computes Peak Signal to Noise Ratio (PSNR). PSNR is a fast measure of image similarity. The PSNR for similar images is higher than the PSNR for dissimilar images. The PSNR for identical images is undefined in the literature, so FireSight by design returns \"SAME\".",
+    "parameters" : [
+	    { 
+	       "name":"threshold",
+	       "default":-1,
+	       "description":"If 0 or greater, this specifies the threshold below which images are treated as different. The default of -1 will only mark identical images as \"SAME\" in the model."
+	    }, 
+	    {
+	       "name":"path",
+	       "default":"",
+	       "description":""
+	    }
+    ]
+}

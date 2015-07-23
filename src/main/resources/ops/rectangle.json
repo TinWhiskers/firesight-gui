@@ -1,0 +1,56 @@
+{
+    "name" : "rectangle", 
+    "description" : "The rectangle operation provides the function of OpenCV rectangle, and allows you to put a rectangle into your pipeline image.",
+    "parameters" : [
+	    { 
+	       "name":"x",
+	       "default":0,
+	       "description":"The x-coordinate of the left edge of the rectangle. FireSight: If -1, center the rectangle horizontally"
+	    }, 
+	    {
+	       "name":"y",
+	       "default":0,
+	       "description":"The y-coordinate of the top edge of the rectangle. FireSight: If -1, center the rectangle vertically"
+	    }, 
+	    {
+	       "name":"width",
+	       "default":64,
+	       "description":"The width of the rectangle. FireSight: Default is 64."
+	    }, 
+	    {
+	       "name":"height",
+	       "default":64,
+	       "description":"The width of the rectangle. FireSight: Default is 64."
+	    }, 
+	    {
+	       "name":"fill",
+	       "default":[-1,-1,-1],
+	       "description":"FireSight: JSON array of BGR color to fill rectangle. Default is [-1,-1,-1] for no fill."
+	    }, 
+	    {
+	       "name":"thickness",
+	       "default":1,
+	       "description":"border thickness. Default is 1."
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[0,0,0],
+	       "description":"border color. Default is [0,0,0]."
+	    }, 
+	    {
+	       "name":"lineType",
+	       "default":8,
+	       "description":""
+	    }, 
+	    {
+	       "name":"flood",
+	       "default":[-1,-1,-1],
+	       "description":"Color for outside of rectangle. Default is [-1,-1,-1] for no flood."
+	    }, 
+	    {
+	       "name":"shift",
+	       "default":0,
+	       "description":"Number of fractional bits in the point coordinates."
+	    }
+    ]
+}

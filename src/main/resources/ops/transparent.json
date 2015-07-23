@@ -1,0 +1,26 @@
+{
+    "name" : "transparent", 
+    "description" : "FireSight transparent operation adds an alpha channel to the pipeline image. If a background color is specified, transparent assigns foreground/background alpha values.",
+    "parameters" : [
+	    { 
+	       "name":"bgcolor",
+	       "default":[],
+	       "description":"JSON array with [B,G,R] background color. Default is [], which treats entire image as foreground"
+	    }, 
+	    {
+	       "name":"alphafg",
+	       "default":1,
+	       "description":" Normalized value between 0 and 1.0 for foreground alpha channel value. The default is 1, which is not transparent."
+	    }, 
+	    {
+	       "name":"alphabg",
+	       "default":0,
+	       "description":"Normalized value between 0 and 1.0 for background alpha channel value. The default is 0, which is fully transparent."
+	    },
+	    {
+	       "name":"roi",
+	       "default":[0,0,100,100],
+	       "description":"JSON array with [x,y,width,height] rectangle describing region of interest."
+	    }
+    ]
+}

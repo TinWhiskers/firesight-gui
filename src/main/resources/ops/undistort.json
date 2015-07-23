@@ -1,0 +1,11 @@
+{
+    "name" : "undistort", 
+    "description" : "The undistort stage gives you access to OpenCV undistort, which allows you to apply the intrinsic camera matrix and distortion coefficients returned by OpenCV calibrateCamera.",
+    "parameters" : [
+	    { 
+	       "name":"model",
+	       "default":"",
+	       "description":"Undocumented"
+	    }
+    ]
+}

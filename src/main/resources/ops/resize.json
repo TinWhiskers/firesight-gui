@@ -1,0 +1,16 @@
+{
+    "name" : "resize", 
+    "description" : "FireSight wrapper for OpenCV resize()",
+    "parameters" : [
+	    { 
+	       "name":"fx",
+	       "default":1.0,
+	       "description":"Horizontal scale, default 1"
+	    }, 
+	    {
+	       "name":"fy",
+	       "default":1.0,
+	       "description":" Vertical scale, default 1"
+	    }
+    ]
+}

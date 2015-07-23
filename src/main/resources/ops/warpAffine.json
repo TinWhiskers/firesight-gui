@@ -1,0 +1,70 @@
+{
+    "name" : "warpAffine", 
+    "description" : "FireSight wrapper for OpenCV warpAffine:",
+    "parameters" : [
+	    { 
+	       "name":"angle",
+	       "default":0,
+	       "description":"Rotate image counter-clockwise by given angle in degrees. Default 0"
+	    }, 
+	    {
+	       "name":"cx",
+	       "default":100,
+	       "description":"Center of rotation. Default is center of image"
+	    }, 
+	    {
+	       "name":"cy",
+	       "default":100,
+	       "description":"Center of rotation. Default is center of image"
+	    }, 
+	    {
+	       "name":"dx",
+	       "default":0,
+	       "description":"Translation after rotation. Default is 0"
+	    }, 
+	    {
+	       "name":"dy",
+	       "default":0,
+	       "description":"Translation after rotation. Default is 0"
+	    }, 
+	    {
+	       "name":"width",
+	       "default":-1,
+	       "description":"Width of output image. Default is width of original image. FireSight: If -1, width will be automatically computed to show full image (vs. cropping it)."
+	    }, 
+	    {
+	       "name":"height",
+	       "default":-1,
+	       "description":"Height of output image. Default is height of original image. FireSight: If -1, height will be automatically computed to show full image (vs. cropping it)."
+	    }, 
+	    {
+	       "name":"scale",
+	       "default":1,
+	       "description":"Size scale of output image. Default is 1"
+	    }, 
+	    {
+	       "name":"reflect",
+	       "default":[0,0],
+	       "description":"JSON array [x,y] of reflection vector. Default is [0,0]. Only x-, y- and xy-axis reflections are supported because of a bug in OpenCV."
+	    }, 
+	    {
+	       "name":"borderValue",
+	       "default":[0,0,0],
+	       "description":"Color to use for background. Default is [0,0,0] BGR"
+	    }, 
+	    {
+	       "name":"borderMode",
+	       "default":"BORDER_DEFAULT",
+	       "options":[
+	       		"BORDER_DEFAULT",
+	       		"BORDER_CONSTANT",
+	       		"BORDER_REPLICATE",
+	       		"BORDER_ISOLATED",
+	       		"BORDER_REFLECT",
+	       		"BORDER_REFLECT_101 101",
+	       		"BORDER_WRAP"
+	       ],
+	       "description":"Specifies how border of transformed image should be filled: BORDER_CONSTANT fills with borderValue; BORDER_REPLICATE replicates border pixels; BORDER_REFLECT fills with a mirror image of source image doubling the border value; BORDER_REFLECT_101 fills with a mirror image of source image without doubling the border value; BORDER_WRAP fills with repeated copies of the source image."
+	    }
+    ]
+}

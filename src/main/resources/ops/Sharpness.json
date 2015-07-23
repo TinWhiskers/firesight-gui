@@ -1,0 +1,16 @@
+{
+    "name" : "sharpness", 
+    "description" : "Estimate 'sharpness' of an input image. See fpd-vision XP005 for more information.",
+    "parameters" : [
+	    { 
+	       "name":"method",
+	       "default":"GRAS",
+	       "options":[
+	       		"GRAS",
+	       		"LAPE",
+	       		"LAPM",
+	       ],
+	       "description":"which method to use"
+	    }
+    ]
+}

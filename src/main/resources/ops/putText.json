@@ -1,0 +1,51 @@
+{
+    "name" : "putText", 
+    "description" : "The putText operation provides the function of OpenCV putText, and allows you to put text into your pipeline image.",
+    "parameters" : [
+	    { 
+	       "name":"text",
+	       "default":"",
+	       "description":"The text to put into image"
+	    }, 
+	    {
+	       "name":"org",
+	       "default":[5,-6],
+	       "description":"The bottom-left corner of the text. If org.y is negative, it is relative to the image bottom. Default is [5,-6]"
+	    }, 
+	    {
+	       "name":"fontFace",
+	       "default":"FONT_HERSHEY_PLAIN",
+	       "options":[
+	       		"FONT_HERSHEY_SIMPLEX",
+	       		"FONT_HERSHEY_PLAIN",
+	       		"FONT_HERSHEY_DUPLEX",
+	       		"FONT_HERSHEY_COMPLEX",
+	       		"FONT_HERSHEY_TRIPLEX",
+	       		"FONT_HERSHEY_COMPLEX_SMALL",
+	       		"FONT_HERSHEY_SCRIPT_SIMPLEX",
+	       		"FONT_HERSHEY_SCRIPT_COMPLEX"
+	       ],
+	       "description":"Font type"
+	    }, 
+	    {
+	       "name":"italic",
+	       "default":"false",
+	       "description":""
+	    }, 
+	    {
+	       "name":"color",
+	       "default":[0,255,0],
+	       "description":"JSON array of BGR values between 0 and 255. Default is [0,255,0]"
+	    }, 
+	    {
+	       "name":"thickness",
+	       "default":1,
+	       "description":""
+	    }, 
+	    {
+	       "name":"fontScale",
+	       "default":1.0,
+	       "description":""
+	    }
+    ]
+}
