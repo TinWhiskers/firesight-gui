@@ -1,0 +1,11 @@
+{
+    "name":"drawRects",
+    "description":"FireSight op draws RotatedRect array from named stage model. Because some folks like square corners, while others are well-rounded.",
+    "parameters":[
+        {
+            "name":"model",
+            "default":"",
+            "description":"name of stage that generates rects model to be drawn"
+        }
+    ]
+}

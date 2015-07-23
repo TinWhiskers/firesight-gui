@@ -1,7 +1,7 @@
 {
-    "name" : "blur", 
-    "description" : "Blurs image.",
-    "parameters" : [
+    "name":"blur",
+    "description":"Blurs image.",
+    "parameters":[
         {
             "name":"ksize.width",
             "default":13,

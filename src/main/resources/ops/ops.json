@@ -2,5 +2,6 @@
     "blur.json",
     "threshold.json",
     "imwrite.json",
-    "minAreaRect.json"
+    "minAreaRect.json",
+    "drawRects.json"
 ]

@@ -1,7 +1,7 @@
 {
-    "name" : "imwrite", 
-    "description" : "Write working image to given file using imwrite.",
-    "parameters" : [
+    "name":"imwrite",
+    "description":"Write working image to given file using imwrite.",
+    "parameters":[
         {
             "name":"path",
             "default":"",
