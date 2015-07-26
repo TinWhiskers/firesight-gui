@@ -27,13 +27,13 @@ public class FireSight {
             writer.write(clonePipelineWithOutputInjection(pipeline, inputFile, outputDirectory).toJson().toString());
             writer.close();
             ProcessBuilder pb = new ProcessBuilder(
-                    "/usr/local/firesight/bin/firesight", 
+                    "firesight", 
                     "-i",
                     inputFile.getAbsolutePath(),
                     "-p",
                     pipelineFile.getAbsolutePath());
 //            pb.inheritIO();
-            pb.environment().put("DYLD_LIBRARY_PATH", "/usr/local/firesight/lib");
+//            pb.environment().put("DYLD_LIBRARY_PATH", "/usr/local/firesight/lib");
             Process process = pb.start();
             int ret = process.waitFor();
             if (ret == 0) {
