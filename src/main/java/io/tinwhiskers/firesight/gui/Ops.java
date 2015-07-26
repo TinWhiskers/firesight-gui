@@ -17,7 +17,12 @@ public class Ops implements Iterable<Op> {
     public Ops() {
         for (JsonElement e : (JsonArray) parseResource("ops/ops.json")) {
             String filename = e.getAsString();
-            Op op = new Op((JsonObject) parseResource("ops/" + filename));
+            JsonObject o = (JsonObject) parseResource("ops/" + filename);
+            if (o == null) {
+                System.out.println("Failed to parse: " + filename);
+                continue;
+            }
+            Op op = new Op(o);
             ops.put(op.getName(), op);
         }
     }
@@ -27,6 +32,7 @@ public class Ops implements Iterable<Op> {
             return parser.parse(new InputStreamReader(ClassLoader.getSystemResourceAsStream(name)));
         }
         catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

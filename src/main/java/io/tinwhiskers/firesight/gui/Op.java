@@ -19,10 +19,15 @@ public class Op {
     private void parse(JsonObject o) {
         name = o.get("name").getAsString();
         description = o.get("description").getAsString();
-        parseParameters(o.get("parameters").getAsJsonArray());
+        try {
+            parseParameters(o.get("parameters").getAsJsonArray());
+        }
+        catch (Exception e) {
+            System.out.println("Unable to parse parameters for " + name + ": " + e.getMessage());
+        }
     }
     
-    private void parseParameters(JsonArray a) {
+    private void parseParameters(JsonArray a) throws Exception {
         for (JsonElement e : a) {
             Parameter p = new Parameter(e.getAsJsonObject());
             parameters.put(p.getName(), p);
@@ -47,7 +52,8 @@ public class Op {
             String,
             Number,
             StringEnum,
-            NumberEnum
+            NumberEnum,
+            NumberArray
         };
         
         private String name;
@@ -56,17 +62,23 @@ public class Op {
         private JsonPrimitive def;
         private JsonArray options;
         
-        public Parameter(JsonObject o) {
+        public Parameter(JsonObject o) throws Exception {
             parse(o);
         }
         
-        private void parse(JsonObject o) {
+        private void parse(JsonObject o) throws Exception {
             name = o.get("name").getAsString();
             description = o.get("description").getAsString();
             // determine the type by looking at the default
             // if it's a string or number, look to see if there is an
             // options property. If so the type is the enum specialization
             // of the scalar
+            if (o.get("default").isJsonArray()) {
+                throw new Exception("Can't parse default for " + name + ", array defaults not yet supported");
+            }
+            if (o.get("default").isJsonObject()) {
+                throw new Exception("Can't parse default for " + name + ", object defaults not yet supported");
+            }
             def = o.get("default").getAsJsonPrimitive();
             if (def.isBoolean()) {
                 type = Type.Boolean;

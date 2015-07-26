@@ -49,7 +49,7 @@
 	    }, 
 	    {
 	       "name":"mask",
-	       "default":,
+	       "default":{},
 	       "description":"If provided, a JSON object (x,y,width,height) specifies MSER mask rectangle. By default, entire image is processed."
 	    }, 
 	    {

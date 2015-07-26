@@ -4,7 +4,7 @@
     "parameters" : [
 	    { 
 	       "name":"method",
-	       "default":,
+	       "default":"CV_TM_CCOEFF",
 	       "options":[
 	       		"CV_TM_SQDIFF",
 	       		"CV_TM_SQDIFF_NORMED",
@@ -36,7 +36,7 @@
 	    }, 
 	    {
 	       "name":"output ",
-	       "default":,
+	       "default":"current",
 	       "options":[
 	       		"current",
 	       		"input",

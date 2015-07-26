@@ -9,7 +9,7 @@
 	    }, 
 	    {
 	       "name":"color",
-	       "default":[-1 -1 -1 -1],
+	       "default":[-1, -1, -1, -1],
 	       "description":"JSON array corresponding to cv::Scalar with 1-4 elements ([-1 -1 -1 -1] default)"
 	    }
     ]

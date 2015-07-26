@@ -24,7 +24,7 @@
 	    }, 
 	    {
 	       "name":"model",
-	       "default":,
+	       "default":"",
 	       "description":"Set this to the name of the houghCircles stage which must be placed before this RANSAC stage."
 	    }
     ]

@@ -1,6 +1,6 @@
 {
     "name" : "normalize", 
-    "description" : "Mathematically, normalization scales the intensity of image pixels relative to a given normalization value (typically 1) and type (typically NORM_L2). Normalization provides a valuable standard of comparison and is implemented by OpenCV normalize. Normalization can also be used for contrast shifting and scaling to focus on "pixel values of interest" and is a great visual aid for interpreting images. FireSight extends OpenCV with a domain parameter that lets you choose a range of pixel intensities of interest (see Example 3).",
+    "description" : "Mathematically, normalization scales the intensity of image pixels relative to a given normalization value (typically 1) and type (typically NORM_L2). Normalization provides a valuable standard of comparison and is implemented by OpenCV normalize. Normalization can also be used for contrast shifting and scaling to focus on \"pixel values of interest\" and is a great visual aid for interpreting images. FireSight extends OpenCV with a domain parameter that lets you choose a range of pixel intensities of interest (see Example 3).",
     "parameters" : [
 	    { 
 	       "name":"alpha",
@@ -9,7 +9,7 @@
 	    }, 
 	    {
 	       "name":"beta",
-	       "default":,
+	       "default":1,
 	       "description":"Upper range boundary in case of the range normalization; it is not used for the norm normalization. Only used for NORM_MINMAX."
 	    }, 
 	    {
@@ -25,12 +25,12 @@
 	    },
 	    {
 	       "name":"domain",
-	       "default":,
+	       "default":[],
 	       "description":"JSON array of integers describing value interval to normalize. Default is [0,255]. Values outside this interval will be eliminated from pipeline image by truncating and shifting image values. This works for all normalization types and is useful for focusing on a value interval of interest."
 	    }, 
 	    {
 	       "name":"range",
-	       "default":,
+	       "default":[],
 	       "description":"JSON array of integers describing output value interval. Default is [0,255], which maximizes the dynamic range of the normalized output. This is rarely used."
 	    }
     ]

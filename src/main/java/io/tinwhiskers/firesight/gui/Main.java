@@ -36,6 +36,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public class Main extends JFrame {
     private JTree pipelineTree;
@@ -105,9 +106,14 @@ public class Main extends JFrame {
             public void mousePressed(MouseEvent e) {
                 TreePath path = pipelineTree.getPathForLocation(e.getX(), e.getY());
                 if (path != null && path.getPathCount() == 3 && e.getClickCount() == 2) {
+                    StageTreeNode stageTreeNode = (StageTreeNode) path.getPathComponent(1);
                     ParameterValueTreeNode pvTreeNode = (ParameterValueTreeNode) path.getPathComponent(2);
                     ParameterValue pv = pvTreeNode.getParameterValue();
-                    ParameterEditorDialog.show(Main.this, pv);
+                    JsonPrimitive value = ParameterEditorDialog.show(Main.this, pv);
+                    if (value == null) {
+                        return;
+                    }
+                    pipelineTreeModel.setParameterValue(pvTreeNode, value);
                     generateOutput();
                 }
             }});
@@ -142,7 +148,7 @@ public class Main extends JFrame {
         
         inputImagesList = new JList(inputImagesListModel);
         inputImagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        inputImagesList.setCellRenderer(new IconListRenderer());
+        inputImagesList.setCellRenderer(new IconListRenderer(inputImagesList));
         inputImagesList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) {
@@ -162,7 +168,7 @@ public class Main extends JFrame {
         
         outputImagesList = new JList(outputImagesListModel);
         outputImagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        outputImagesList.setCellRenderer(new IconListRenderer());
+        outputImagesList.setCellRenderer(new IconListRenderer(outputImagesList));
         scrollPane_2.setViewportView(outputImagesList);
         splitPane_1.setDividerLocation(250);
         splitPane.setDividerLocation(250);

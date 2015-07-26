@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import com.google.gson.JsonPrimitive;
 
 public class ParameterEditorDialog {
-    public static void show(Frame owner, ParameterValue pv) {
+    public static JsonPrimitive show(Frame owner, ParameterValue pv) {
         String title = null;
         String message = "Select a value for " + pv.getParameter().getName();
         switch (pv.getParameter().getType()) {
@@ -21,38 +21,31 @@ public class ParameterEditorDialog {
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
                         new Object[] { Boolean.TRUE, Boolean.FALSE}, 
-                        pv.getValue().getAsBoolean()
-                        );
+                        pv.getValue().getAsBoolean());
                 if (ret == null) {
-                    return;
+                    return null;
                 }
-                pv.setValue(new JsonPrimitive((Boolean) ret));
-                break;
+                return new JsonPrimitive((Boolean) ret);
             }
             case String: {
                 Object ret = JOptionPane.showInputDialog(
                         owner, 
                         message, 
-                        pv.getValue().getAsString(), 
-                        JOptionPane.QUESTION_MESSAGE 
-                        );
+                        pv.getValue().getAsString());
                 if (ret == null) {
-                    return;
+                    return null;
                 }
-                pv.setValue(new JsonPrimitive((String) ret));
-                break;
+                return new JsonPrimitive((String) ret);
             }
             case Number: {
                 Object ret = JOptionPane.showInputDialog(
                         owner, 
                         message,
-                        pv.getValue().getAsString()
-                        );
+                        pv.getValue().getAsString());
                 if (ret == null) {
-                    return;
+                    return null;
                 }
-                pv.setValue(new JsonPrimitive(new Double((String) ret)));
-                break;
+                return new JsonPrimitive(new Double((String) ret));
             }
             case StringEnum: {
                 Object[] options = new Object[pv.getParameter().getOptions().size()];
@@ -66,13 +59,11 @@ public class ParameterEditorDialog {
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
                         options, 
-                        pv.getValue().getAsString()
-                        );
+                        pv.getValue().getAsString());
                 if (ret == null) {
-                    return;
+                    return null;
                 }
-                pv.setValue(new JsonPrimitive((String) ret));
-                break;
+                return new JsonPrimitive((String) ret);
             }
             case NumberEnum: {
                 Object[] options = new Object[pv.getParameter().getOptions().size()];
@@ -86,14 +77,14 @@ public class ParameterEditorDialog {
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
                         options, 
-                        pv.getValue().getAsString()
-                        );
+                        pv.getValue().getAsString());
                 if (ret == null) {
-                    return;
+                    return null;
                 }
-                pv.setValue(new JsonPrimitive(new Double((String) ret)));
-                break;
+                return new JsonPrimitive(new Double((String) ret));
             }
+            default:
+                return null;
         }
     }
 }
