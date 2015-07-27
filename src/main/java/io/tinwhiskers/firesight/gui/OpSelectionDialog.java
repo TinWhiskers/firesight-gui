@@ -32,7 +32,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 @SuppressWarnings("serial")
-public class OpSelectionDialog<T> extends JDialog {
+public class OpSelectionDialog extends JDialog {
 	private Op selectedOp;
 	private JList<OpListItem> list;
 
