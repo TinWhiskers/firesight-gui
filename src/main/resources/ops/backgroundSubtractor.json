@@ -19,7 +19,7 @@
         },
         {
             "name":"bShadowDetection",
-            "default":"true",
+            "default":true,
             "description":"(MOG2) The OpenCV and FireSight default is true, but false may be more useful given the lack of shadows in most pick-and-place images."
         },
         {

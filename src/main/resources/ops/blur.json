@@ -4,12 +4,12 @@
     "parameters":[
         {
             "name":"ksize.width",
-            "default":13,
+            "default":3,
             "description":"pixel width of blurring kernel"
         },
         {
             "name":"ksize.height",
-            "default":13,
+            "default":3,
             "description":"pixel height of blurring kernel"
         },
         {

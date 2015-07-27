@@ -77,11 +77,11 @@ public class ParameterEditorDialog {
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
                         options, 
-                        pv.getValue().getAsString());
+                        pv.getValue().getAsDouble());
                 if (ret == null) {
                     return null;
                 }
-                return new JsonPrimitive(new Double((String) ret));
+                return new JsonPrimitive((Double) ret);
             }
             default:
                 return null;

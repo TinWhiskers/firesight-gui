@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Map;
+import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -176,7 +177,13 @@ public class Main extends JFrame {
         splitPane_1.setDividerLocation(250);
         splitPane.setDividerLocation(250);
         
-        setInputDirectory(new File("/Users/jason/Projects/FPD/firesight-gui/test1"));
+        String defaultInputDirectoryPath = Preferences.userNodeForPackage(getClass()).get("inputDirectory", null);
+        if (defaultInputDirectoryPath != null) {
+            File defaultInputDirectory = new File(defaultInputDirectoryPath);
+            if (defaultInputDirectory.exists()) {
+                setInputDirectory(defaultInputDirectory);
+            }
+        }
     }
     
     private void setInputDirectory(File inputDirectory) {
@@ -192,6 +199,7 @@ public class Main extends JFrame {
         for (File file : files) {
             inputImagesListModel.addElement(file);
         }
+        Preferences.userNodeForPackage(getClass()).put("inputDirectory", inputDirectory.getAbsolutePath());
     }
     
     private void setOutputFiles(Map<Stage, File> output) {

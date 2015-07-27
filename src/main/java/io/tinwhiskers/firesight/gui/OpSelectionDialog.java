@@ -6,6 +6,10 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -77,9 +81,19 @@ public class OpSelectionDialog<T> extends JDialog {
 
 		DefaultListModel<OpListItem> listModel = new DefaultListModel<OpListItem>();
 		list.setModel(listModel);
-		for (Op op : ops) {
-			listModel.addElement(new OpListItem(op));
-		}
+		List<Op> sortedOps = new ArrayList<Op>();
+        for (Op op : ops) {
+            sortedOps.add(op);
+        }
+        Collections.sort(sortedOps, new Comparator<Op>() {
+            @Override
+            public int compare(Op o1, Op o2) {
+                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+            }
+        });
+        for (Op op : sortedOps) {
+            listModel.addElement(new OpListItem(op));
+        }
 
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {

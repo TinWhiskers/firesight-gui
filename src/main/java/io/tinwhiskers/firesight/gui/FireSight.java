@@ -32,8 +32,7 @@ public class FireSight {
                     inputFile.getAbsolutePath(),
                     "-p",
                     pipelineFile.getAbsolutePath());
-//            pb.inheritIO();
-//            pb.environment().put("DYLD_LIBRARY_PATH", "/usr/local/firesight/lib");
+            pb.inheritIO();
             Process process = pb.start();
             int ret = process.waitFor();
             if (ret == 0) {

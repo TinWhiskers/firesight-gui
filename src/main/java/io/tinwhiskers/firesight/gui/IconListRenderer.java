@@ -58,7 +58,7 @@ class IconListRenderer extends DefaultListCellRenderer {
             return icon;
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Failed to create icon for " + file);
             return null;
         }
     }
