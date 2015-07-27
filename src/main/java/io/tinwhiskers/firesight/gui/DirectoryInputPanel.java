@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 @SuppressWarnings("serial")
-public class DirectoryInputPanel extends JPanel implements InputPanel {
+public class DirectoryInputPanel extends JPanel {
     private File inputDirectory;
     private JTextField imageDirectoryTextField;
     private JList<File> inputImagesList;
@@ -84,7 +84,6 @@ public class DirectoryInputPanel extends JPanel implements InputPanel {
         Preferences.userNodeForPackage(getClass()).put("inputDirectory", inputDirectory.getAbsolutePath());
     }
     
-    @Override
     public File getInputFile() {
         if (inputImagesList.getSelectedIndex() == -1) {
             return null;

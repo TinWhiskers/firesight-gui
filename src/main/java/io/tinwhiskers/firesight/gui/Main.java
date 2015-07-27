@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
@@ -18,7 +17,7 @@ public class Main extends JFrame {
     private Ops ops = new Ops();
     private FireSight fireSight = new FireSight(ops);
     private PipelinePanel pipelinePanel = new PipelinePanel(this);
-    private DirectoryInputPanel directoryInputPanel = new DirectoryInputPanel(this);
+    private InputPanel inputPanel = new InputPanel(this);
     private OutputPanel outputPanel = new OutputPanel(this);
     private File workingDirectory;
     
@@ -38,15 +37,7 @@ public class Main extends JFrame {
         panel.setLayout(new BorderLayout(0, 0));
         
         JSplitPane splitPane2 = new JSplitPane();
-        panel.add(splitPane2, BorderLayout.CENTER);
-        
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new BorderLayout(0, 0));
-        
-        JTabbedPane inputTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        inputPanel.add(inputTabbedPane, BorderLayout.CENTER);
-        
-        inputTabbedPane.add("Directory", directoryInputPanel);
+        panel.add(splitPane2, BorderLayout.CENTER);        
 
         splitPane1.setLeftComponent(pipelinePanel);
         splitPane1.setRightComponent(panel);
@@ -69,7 +60,6 @@ public class Main extends JFrame {
     public void generateOutput() {
         // figure out which input panel is selected and grab the
         // file from it.
-        InputPanel inputPanel = directoryInputPanel;
         File inputFile = inputPanel.getInputFile();
         if (inputFile == null) {
             outputPanel.setOutputFiles(null);
