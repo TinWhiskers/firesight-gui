@@ -29,7 +29,7 @@
 	    }, 
 	    {
 	       "name":"filterByColor",
-	       "default":"true",
+	       "default":true,
 	       "description":"Undocumented"
 	    }, 
 	    {
@@ -39,7 +39,7 @@
 	    }, 
 	    {
 	       "name":"filterByArea",
-	       "default":"true",
+	       "default":true,
 	       "description":"Undocumented"
 	    }, 
 	    {
@@ -54,7 +54,7 @@
 	    }, 
 	    {
 	       "name":"filterByCircularity",
-	       "default":"false",
+	       "default":false,
 	       "description":"Undocumented"
 	    }, 
 	    {
@@ -84,7 +84,7 @@
 	    }, 
 	    {
 	       "name":"filterByConvexity",
-	       "default":"true",
+	       "default":true,
 	       "description":"Undocumented"
 	    }, 
 	    {

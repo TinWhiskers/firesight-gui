@@ -29,7 +29,7 @@
 	    }, 
 	    {
 	       "name":"italic",
-	       "default":"false",
+	       "default":false,
 	       "description":""
 	    }, 
 	    {
