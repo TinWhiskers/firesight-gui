@@ -6,6 +6,7 @@ import io.tinwhiskers.firesight.gui.PipelineTreeModel.ParameterValueTreeNode;
 import io.tinwhiskers.firesight.gui.PipelineTreeModel.StageTreeNode;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,27 +29,27 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame {
     private JTree pipelineTree;
-    private JList inputImagesList;
+    private JList<File> inputImagesList;
     private JTextField imageDirectoryTextField;
-    private JList outputImagesList;
+    private JList<File> outputImagesList;
     private Map<Stage, File> outputFiles;
     
-    private JsonParser parser = new JsonParser();
     private File inputDirectory;
     private Ops ops = new Ops();
-    private Pipeline pipeline;
     private PipelineTreeModel pipelineTreeModel;
     private DefaultListModel<File> inputImagesListModel = new DefaultListModel<File>();
     private DefaultListModel<File> outputImagesListModel = new DefaultListModel<File>();
@@ -106,7 +107,6 @@ public class Main extends JFrame {
             public void mousePressed(MouseEvent e) {
                 TreePath path = pipelineTree.getPathForLocation(e.getX(), e.getY());
                 if (path != null && path.getPathCount() == 3 && e.getClickCount() == 2) {
-                    StageTreeNode stageTreeNode = (StageTreeNode) path.getPathComponent(1);
                     ParameterValueTreeNode pvTreeNode = (ParameterValueTreeNode) path.getPathComponent(2);
                     ParameterValue pv = pvTreeNode.getParameterValue();
                     JsonPrimitive value = ParameterEditorDialog.show(Main.this, pv);
@@ -117,6 +117,9 @@ public class Main extends JFrame {
                     generateOutput();
                 }
             }});
+        pipelineTree.setCellRenderer(new TooltipTreeRenderer());
+        ToolTipManager.sharedInstance().registerComponent(pipelineTree);        
+        
         scrollPane.setViewportView(pipelineTree);
         
         JPanel panel_1 = new JPanel();
@@ -146,7 +149,7 @@ public class Main extends JFrame {
         JScrollPane scrollPane_1 = new JScrollPane();
         panelFiles.add(scrollPane_1, BorderLayout.CENTER);
         
-        inputImagesList = new JList(inputImagesListModel);
+        inputImagesList = new JList<File>(inputImagesListModel);
         inputImagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         inputImagesList.setCellRenderer(new IconListRenderer(inputImagesList));
         inputImagesList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -166,7 +169,7 @@ public class Main extends JFrame {
         JScrollPane scrollPane_2 = new JScrollPane();
         panelOutput.add(scrollPane_2, BorderLayout.CENTER);
         
-        outputImagesList = new JList(outputImagesListModel);
+        outputImagesList = new JList<File>(outputImagesListModel);
         outputImagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         outputImagesList.setCellRenderer(new IconListRenderer(outputImagesList));
         scrollPane_2.setViewportView(outputImagesList);
@@ -286,8 +289,24 @@ public class Main extends JFrame {
                 Main main = new Main();
                 main.setSize(1024, 768);
                 main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                main.show();
+                main.setVisible(true);
             }
         });
     }
+    
+    public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {    
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+          final Component rc = super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+          if (value instanceof StageTreeNode) {
+              StageTreeNode node = (StageTreeNode) value;
+              this.setToolTipText(node.getStage().getOp().getDescription());
+          }
+          else if (value instanceof ParameterValueTreeNode) {
+              ParameterValueTreeNode node = (ParameterValueTreeNode) value;
+              this.setToolTipText(node.getParameterValue().getParameter().getDescription());
+          }
+          return rc;
+        }
+    }        
 }

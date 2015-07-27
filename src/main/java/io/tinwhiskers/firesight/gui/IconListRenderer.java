@@ -15,13 +15,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+@SuppressWarnings("serial")
 class IconListRenderer extends DefaultListCellRenderer {
     private Map<File, CacheKey> cache = new HashMap<File, CacheKey>();
     
-    public IconListRenderer(JList list) {
+    public IconListRenderer(JList<File> list) {
         
     }
     
+    @SuppressWarnings("rawtypes")
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         try {
@@ -36,7 +38,7 @@ class IconListRenderer extends DefaultListCellRenderer {
         }
     }
     
-    protected Icon getIcon(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) throws Exception {
+    protected Icon getIcon(JList<File> list, Object value, int index, boolean isSelected, boolean cellHasFocus) throws Exception {
         File file = (File) value;
         if (cache.containsKey(value)) {
             CacheKey key = cache.get(value);

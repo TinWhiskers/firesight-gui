@@ -115,6 +115,10 @@ public class Op {
             return options;
         }
         
+        public String getDescription() {
+            return description;
+        }
+        
         @Override
         public String toString() {
             return getName();

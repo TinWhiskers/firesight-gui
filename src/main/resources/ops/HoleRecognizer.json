@@ -18,7 +18,7 @@
 	       "options":[
 	       		"NONE",
 	       		"MSER",
-	       		"MATCHES",
+	       		"MATCHES"
 	       ],
 	       "description":"update working image and 0:do not show recognized holes; 1:show MSER hole candidates (see below); 2:show matched holes only (fuchsia)"
 	    }
