@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 
-import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonElement;
 
 public class PipelineTreeModel extends DefaultTreeModel {
     private Pipeline pipeline;
@@ -60,7 +60,7 @@ public class PipelineTreeModel extends DefaultTreeModel {
         stages.add(index, stage);
     }
     
-    public void setParameterValue(ParameterValueTreeNode pvNode, JsonPrimitive value) {
+    public void setParameterValue(ParameterValueTreeNode pvNode, JsonElement value) {
         pvNode.getParameterValue().setValue(value);
         nodeChanged(pvNode);
     }

@@ -26,7 +26,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonElement;
 
 @SuppressWarnings("serial")
 public class PipelinePanel extends JPanel {
@@ -79,7 +79,7 @@ public class PipelinePanel extends JPanel {
                 if (path != null && path.getPathCount() == 3 && e.getClickCount() == 2) {
                     ParameterValueTreeNode pvTreeNode = (ParameterValueTreeNode) path.getPathComponent(2);
                     ParameterValue pv = pvTreeNode.getParameterValue();
-                    JsonPrimitive value = ParameterEditorDialog.show((Frame) getTopLevelAncestor(), pv);
+                    JsonElement value = ParameterEditorDialog.show((Frame) getTopLevelAncestor(), pv);
                     if (value == null) {
                         return;
                     }

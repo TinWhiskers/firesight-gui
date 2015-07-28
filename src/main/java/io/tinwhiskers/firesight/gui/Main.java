@@ -45,8 +45,8 @@ public class Main extends JFrame {
         splitPane2.setLeftComponent(inputPanel);
         splitPane2.setRightComponent(outputPanel);
 
-        splitPane2.setDividerLocation(250);
         splitPane1.setDividerLocation(250);
+        splitPane2.setDividerLocation(400);
     }
     
     public Ops getOps() {

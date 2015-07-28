@@ -6,12 +6,14 @@ import java.awt.Frame;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public class ParameterEditorDialog {
-    public static JsonPrimitive show(Frame owner, ParameterValue pv) {
-        String title = null;
-        String message = "Select a value for " + pv.getParameter().getName();
+    public static JsonElement show(Frame owner, ParameterValue pv) {
+        String title = "Set " + pv.getParameter().getName();
+        String message = breakLongString(pv.getParameter().getDescription(), 60);
         switch (pv.getParameter().getType()) {
             case Boolean: {
                 Object ret = JOptionPane.showInputDialog(
@@ -83,8 +85,56 @@ public class ParameterEditorDialog {
                 }
                 return new JsonPrimitive((Double) ret);
             }
+            case NumberArray: {
+                Object ret = JOptionPane.showInputDialog(
+                        owner, 
+                        message, 
+                        pv.getValue().toString());
+                if (ret == null) {
+                    return null;
+                }
+                try {
+                    JsonParser parser = new JsonParser();
+                    return parser.parse((String) ret).getAsJsonArray();
+                }
+                catch (Exception e) {
+                    return null;
+                }
+            }
             default:
-                return null;
+                throw new Error("Unrecognized type " + pv.getParameter().getType());
         }
     }
+    
+    /** Force-inserts line breaks into an otherwise human-unfriendly long string.
+     * */
+    private static String breakLongString( String input, int charLimit )
+    {
+        String output = "", rest = input;
+        int i = 0;
+
+         // validate.
+        if ( rest.length() < charLimit ) {
+            output = rest;
+        }
+        else if (  !rest.equals("")  &&  (rest != null)  )  // safety precaution
+        {
+            do
+            {    // search the next index of interest.
+                i = rest.lastIndexOf(" ", charLimit) +1;
+                if ( i == -1 )
+                    i = charLimit;
+                if ( i > rest.length() )
+                    i = rest.length();
+
+                 // break!
+                output += rest.substring(0,i) +"\n";
+                rest = rest.substring(i);
+            }
+            while (  (rest.length() > charLimit)  );
+            output += rest;
+        }
+
+        return output;
+    }    
 }

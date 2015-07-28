@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class Op {
     private String name;
@@ -59,7 +58,7 @@ public class Op {
         private String name;
         private String description;
         private Type type;
-        private JsonPrimitive def;
+        private JsonElement def;
         private JsonArray options;
         
         public Parameter(JsonObject o) throws Exception {
@@ -73,29 +72,31 @@ public class Op {
             // if it's a string or number, look to see if there is an
             // options property. If so the type is the enum specialization
             // of the scalar
-            if (o.get("default").isJsonArray()) {
-                throw new Exception("Can't parse default for " + name + ", array defaults not yet supported");
-            }
             if (o.get("default").isJsonObject()) {
                 throw new Exception("Can't parse default for " + name + ", object defaults not yet supported");
             }
-            def = o.get("default").getAsJsonPrimitive();
-            if (def.isBoolean()) {
-                type = Type.Boolean;
-            }
-            else if (def.isNumber()) {
-                type = Type.Number;
-                if (o.has("options") && o.get("options").getAsJsonArray().size() > 0) {
-                    type = Type.NumberEnum;
-                    options = o.get("options").getAsJsonArray();
+            def = o.get("default");
+            if (def.isJsonPrimitive()) {
+                if (def.getAsJsonPrimitive().isBoolean()) {
+                    type = Type.Boolean;
+                }
+                else if (def.getAsJsonPrimitive().isNumber()) {
+                    type = Type.Number;
+                    if (o.has("options") && o.get("options").getAsJsonArray().size() > 0) {
+                        type = Type.NumberEnum;
+                        options = o.get("options").getAsJsonArray();
+                    }
+                }
+                else if (def.getAsJsonPrimitive().isString()) {
+                    type = Type.String;
+                    if (o.has("options") && o.get("options").getAsJsonArray().size() > 0) {
+                        type = Type.StringEnum;
+                        options = o.get("options").getAsJsonArray();
+                    }
                 }
             }
-            else if (def.isString()) {
-                type = Type.String;
-                if (o.has("options") && o.get("options").getAsJsonArray().size() > 0) {
-                    type = Type.StringEnum;
-                    options = o.get("options").getAsJsonArray();
-                }
+            else if (def.isJsonArray()) {
+                type = Type.NumberArray;
             }
         }
         
@@ -107,7 +108,7 @@ public class Op {
             return type;
         }
         
-        public JsonPrimitive getDefault() {
+        public JsonElement getDefault() {
             return def;
         }
         

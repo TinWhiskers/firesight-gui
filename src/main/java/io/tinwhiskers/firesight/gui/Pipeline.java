@@ -1,16 +1,16 @@
 package io.tinwhiskers.firesight.gui;
 
 import io.tinwhiskers.firesight.gui.Op.Parameter;
+import io.tinwhiskers.firesight.gui.Op.Parameter.Type;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonStreamParser;
 
 public class Pipeline {
     private List<Stage> stages = new ArrayList<Stage>();
@@ -106,11 +106,11 @@ public class Pipeline {
         
         public static class ParameterValue {
             private Parameter parameter;
-            private JsonPrimitive value;
+            private JsonElement value;
             
-            public ParameterValue(Parameter parameter, JsonPrimitive value) {
+            public ParameterValue(Parameter parameter, JsonElement value) {
                 this.parameter = parameter;
-                this.value = value;
+                setValue(value);
             }
             
             public Parameter getParameter() {
@@ -121,12 +121,59 @@ public class Pipeline {
                 this.parameter = parameter;
             }
             
-            public JsonPrimitive getValue() {
+            public JsonElement getValue() {
                 return value;
             }
             
-            public void setValue(JsonPrimitive value) {
+            public void setValue(JsonElement value) {
+                // enforce the type
+                Type type = parameter.getType();
+                if (type == Type.Boolean){
+                    if (!isBoolean(value)) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else if (type == Type.Number){
+                    if (!isNumber(value)) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else if (type == Type.String){
+                    if (!isString(value)) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else if (type == Type.StringEnum){
+                    if (!isString(value)) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else if (type == Type.NumberEnum){
+                    if (!isNumber(value)) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else if (type == Type.NumberArray){
+                    if (!value.isJsonArray()) {
+                        throw new Error("Invalid value " + value + " for type " + type);
+                    }
+                }
+                else {
+                    throw new Error("Unrecognized type " + type);
+                }
                 this.value = value;
+            }
+            
+            public boolean isBoolean(JsonElement e) {
+                return e.isJsonPrimitive() && e.getAsJsonPrimitive().isBoolean();
+            }
+            
+            public boolean isString(JsonElement e) {
+                return e.isJsonPrimitive() && e.getAsJsonPrimitive().isString();
+            }
+            
+            public boolean isNumber(JsonElement e) {
+                return e.isJsonPrimitive() && e.getAsJsonPrimitive().isNumber();
             }
             
             @Override
@@ -134,7 +181,7 @@ public class Pipeline {
                 return parameter.getName() + " = " + value.toString();
             }
             
-            public JsonPrimitive toJson() {
+            public JsonElement toJson() {
                 return value;
             }
         }

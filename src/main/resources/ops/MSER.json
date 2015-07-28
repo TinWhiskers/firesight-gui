@@ -19,7 +19,7 @@
 	    }, 
 	    {
 	       "name":"maxVariation",
-	       "default":025,
+	       "default":0.25,
 	       "description":"prune the area have simliar size to its children. Default 0.25"
 	    }, 
 	    {
@@ -48,18 +48,17 @@
 	       "description":"the aperture size for edge blur. Default 5"
 	    }, 
 	    {
-	       "name":"mask",
-	       "default":{},
-	       "description":"If provided, a JSON object (x,y,width,height) specifies MSER mask rectangle. By default, entire image is processed."
-	    }, 
-	    {
 	       "name":"color",
 	       "default":[-1,-1,-1,-1],
 	       "description":"if provided, matched regions will be colored with BGR Scalar having 1-4 values. For alternating colors, use: [-1,-1,-1,-1]"
 	    },
 	    {
 	       "name":"detect",
-	       "default":"",
+	       "default":"keypoints",
+	       "options":[
+	           "keypoints",
+	           "rects"
+	       ],
 	       "description":"Use \"keyPoints\" or \"Rotatedrect\" to return a JSON object to the stage model for each detected MSER region. Each KeyPoint is determined from eigenvectors and covariance matrix of region. The size field of the KeyPoint is calculated from the number of points in the region: size = 2*sqrt(region.size()/π).  Each RotatedRect is calculated by minAreaRect()"
 	    }
     ]

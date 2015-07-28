@@ -26,8 +26,10 @@ public class FireSight {
         // load all the output images into the list
         File pipelineFile = new File(outputDirectory, "pipeline.json");
         try {
+            System.out.println(pipelineFile.getAbsolutePath());
             FileWriter writer = new FileWriter(pipelineFile);
-            writer.write(clonePipelineWithOutputInjection(pipeline, inputFile, outputDirectory).toJson().toString());
+            Pipeline pipeline2 = clonePipelineWithOutputInjection(pipeline, inputFile, outputDirectory);
+            writer.write(pipeline2.toJson().toString());
             writer.close();
             ProcessBuilder pb = new ProcessBuilder(
                     "firesight", 

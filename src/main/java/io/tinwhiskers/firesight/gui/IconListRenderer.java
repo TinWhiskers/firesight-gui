@@ -3,7 +3,6 @@ package io.tinwhiskers.firesight.gui;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -48,8 +47,11 @@ class IconListRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         try {
+            File file = (File) value;
             Icon icon = this.getIcon(list, value, index, isSelected, cellHasFocus);
-            label.setText(null);
+            label.setHorizontalTextPosition(CENTER);
+            label.setVerticalTextPosition(TOP);
+            label.setText(file.getName());
             label.setIcon(icon);
             label.invalidate();
             return label;
