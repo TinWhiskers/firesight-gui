@@ -3,6 +3,9 @@ package io.tinwhiskers.firesight.gui;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
@@ -20,7 +23,25 @@ class IconListRenderer extends DefaultListCellRenderer {
     private Map<File, CacheKey> cache = new HashMap<File, CacheKey>();
     
     public IconListRenderer(JList<File> list) {
-        
+        list.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                cache.clear();
+                repaint();
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                cache.clear();
+                repaint();
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                cache.clear();
+                repaint();
+            }
+        });
     }
     
     @SuppressWarnings("rawtypes")
@@ -30,6 +51,7 @@ class IconListRenderer extends DefaultListCellRenderer {
             Icon icon = this.getIcon(list, value, index, isSelected, cellHasFocus);
             label.setText(null);
             label.setIcon(icon);
+            label.invalidate();
             return label;
         }
         catch (Exception e) {
@@ -38,7 +60,7 @@ class IconListRenderer extends DefaultListCellRenderer {
         }
     }
     
-    protected Icon getIcon(JList<File> list, Object value, int index, boolean isSelected, boolean cellHasFocus) throws Exception {
+    protected Icon getIcon(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) throws Exception {
         File file = (File) value;
         if (cache.containsKey(value)) {
             CacheKey key = cache.get(value);
@@ -48,9 +70,43 @@ class IconListRenderer extends DefaultListCellRenderer {
         }
         try {
             Image image = ImageIO.read(file);
-            BufferedImage thumbnail = new BufferedImage(150, 150, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage thumbnail = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
+
+            int width = thumbnail.getWidth();
+            int height = thumbnail.getHeight();
+
+            double destWidth = width, destHeight = height;
+
+            double lastWidth = width;
+            double lastHeight = height;
+
+            double lastSourceWidth = image.getWidth(null);
+            double lastSourceHeight = image.getHeight(null);
+
+            double heightRatio = lastSourceHeight / destHeight;
+            double widthRatio = lastSourceWidth / destWidth;
+            
+            int scaledWidth, scaledHeight;
+
+            if (heightRatio > widthRatio) {
+                double aspectRatio = lastSourceWidth / lastSourceHeight;
+                scaledHeight = (int) destHeight;
+                scaledWidth = (int) (scaledHeight * aspectRatio);
+            }
+            else {
+                double aspectRatio = lastSourceHeight / lastSourceWidth;
+                scaledWidth = (int) destWidth;
+                scaledHeight = (int) (scaledWidth * aspectRatio);
+            }
+
+            int imageX = (width / 2) - (scaledWidth / 2);
+            int imageY = (height / 2) - (scaledHeight / 2);
+
+            double scaleRatioX = lastSourceWidth / (double) scaledWidth;
+            double scaleRatioY = lastSourceHeight / (double) scaledHeight;
+            
             Graphics g = thumbnail.getGraphics();
-            g.drawImage(image, 0, 0, 150, 150, null);
+            g.drawImage(image, imageX, imageY, scaledWidth, scaledHeight, null);
             g.dispose();
             Icon icon = new ImageIcon(thumbnail);
             CacheKey key = new CacheKey(file, file.lastModified(), icon);

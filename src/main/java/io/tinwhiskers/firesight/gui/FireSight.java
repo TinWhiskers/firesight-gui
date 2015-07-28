@@ -17,6 +17,9 @@ public class FireSight {
     }
     
     public Map<Stage, File> generateOutputImages(Pipeline pipeline, File inputFile, File outputDirectory) {
+        if (pipeline.getStages().size() < 1) {
+            return null;
+        }
         // get the selected image
         // serialize the pipeline, adding output stages between each stage
         // run firesight
