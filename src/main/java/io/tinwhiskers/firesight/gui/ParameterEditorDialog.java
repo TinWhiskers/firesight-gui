@@ -18,7 +18,7 @@ public class ParameterEditorDialog {
         String message = breakLongString(pv.getParameter().getDescription(), 60);
         switch (pv.getParameter().getType()) {
             case Boolean: {
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JCheckBox valueComponent = new JCheckBox(pv.getParameter().getName(), pv.getValue().getAsBoolean());
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
@@ -37,7 +37,7 @@ public class ParameterEditorDialog {
                 return true;
             }
             case String: {
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JTextField valueComponent = new JTextField(pv.getValue().getAsString());
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
@@ -56,7 +56,7 @@ public class ParameterEditorDialog {
                 return true;
             }
             case Number: {
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JTextField valueComponent = new JTextField(pv.getValue().getAsString());
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
@@ -79,7 +79,7 @@ public class ParameterEditorDialog {
                 for (int i = 0; i < options.length; i++) {
                     options[i] = pv.getParameter().getOptions().get(i).getAsString();
                 }
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JComboBox valueComponent = new JComboBox(options);
                 valueComponent.setSelectedItem(pv.getValue().getAsString());
                 int ret = JOptionPane.showOptionDialog(
@@ -103,7 +103,7 @@ public class ParameterEditorDialog {
                 for (int i = 0; i < options.length; i++) {
                     options[i] = pv.getParameter().getOptions().get(i).getAsDouble();
                 }
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JComboBox valueComponent = new JComboBox(options);
                 valueComponent.setSelectedItem(pv.getValue().getAsDouble());
                 int ret = JOptionPane.showOptionDialog(
@@ -123,7 +123,7 @@ public class ParameterEditorDialog {
                 return true;
             }
             case NumberArray: {
-                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JTextField valueComponent = new JTextField(pv.getValue().toString());
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
