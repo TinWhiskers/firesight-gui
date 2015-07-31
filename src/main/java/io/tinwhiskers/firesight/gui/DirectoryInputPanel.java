@@ -35,9 +35,9 @@ public class DirectoryInputPanel extends JPanel {
         toolBar_1.setFloatable(false);
         
         imageDirectoryTextField = new JTextField();
-        imageDirectoryTextField.setEditable(false);
         toolBar_1.add(imageDirectoryTextField);
         imageDirectoryTextField.setColumns(10);
+        imageDirectoryTextField.addActionListener(setDirectory);
         
         JButton browseButton = new JButton(browseDirectory);
         toolBar_1.add(browseButton);
@@ -101,6 +101,13 @@ public class DirectoryInputPanel extends JPanel {
                 File directory = j.getSelectedFile();
                 setInputDirectory(directory);
             }      
+        }
+    };
+    
+    private Action setDirectory = new AbstractAction("Set Directory") {
+        public void actionPerformed(ActionEvent e) {
+            File file = new File(imageDirectoryTextField.getText());
+            setInputDirectory(file);
         }
     };
 }

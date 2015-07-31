@@ -66,6 +66,7 @@ public class FireSight {
             JsonPrimitive path = new JsonPrimitive(
                     getOutputInjectionFile(stage, inputFile, outputDirectory).getAbsolutePath());
             imWriteStage.setParameterValue("path", path);
+            imWriteStage.setParameterValueEnabled("path", true);
             out.addStage(imWriteStage);
         }
         return out;

@@ -65,6 +65,11 @@ public class PipelineTreeModel extends DefaultTreeModel {
         nodeChanged(pvNode);
     }
     
+    public void setParameterValueEnabled(ParameterValueTreeNode pvNode, boolean enabled) {
+        pvNode.getParameterValue().setEnabled(enabled);
+        nodeChanged(pvNode);
+    }
+    
     public Pipeline getPipeline() {
         return pipeline;
     }

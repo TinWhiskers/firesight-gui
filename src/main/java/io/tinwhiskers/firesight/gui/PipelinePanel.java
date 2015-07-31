@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -79,12 +80,10 @@ public class PipelinePanel extends JPanel {
                 if (path != null && path.getPathCount() == 3 && e.getClickCount() == 2) {
                     ParameterValueTreeNode pvTreeNode = (ParameterValueTreeNode) path.getPathComponent(2);
                     ParameterValue pv = pvTreeNode.getParameterValue();
-                    JsonElement value = ParameterEditorDialog.show((Frame) getTopLevelAncestor(), pv);
-                    if (value == null) {
-                        return;
+                    if (ParameterEditorDialog.show((Frame) getTopLevelAncestor(), pv)) {
+                        pipelineTreeModel.setParameterValue(pvTreeNode, pv.getValue());
+                        PipelinePanel.this.main.generateOutput();
                     }
-                    pipelineTreeModel.setParameterValue(pvTreeNode, value);
-                    PipelinePanel.this.main.generateOutput();
                 }
             }});
         pipelineTree.setCellRenderer(new TooltipTreeRenderer());
@@ -143,19 +142,27 @@ public class PipelinePanel extends JPanel {
         }
     };
     
-    public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {    
+    public class TooltipTreeRenderer extends DefaultTreeCellRenderer {
         @Override
-        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-          final Component rc = super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-          if (value instanceof StageTreeNode) {
-              StageTreeNode node = (StageTreeNode) value;
-              this.setToolTipText(node.getStage().getOp().getDescription());
-          }
-          else if (value instanceof ParameterValueTreeNode) {
-              ParameterValueTreeNode node = (ParameterValueTreeNode) value;
-              this.setToolTipText(node.getParameterValue().getParameter().getDescription());
-          }
-          return rc;
+        public Component getTreeCellRendererComponent(JTree tree, Object value,
+                boolean sel, boolean expanded, boolean leaf, int row,
+                boolean hasFocus) {
+
+            final JLabel rc = (JLabel) super.getTreeCellRendererComponent(tree,
+                    value, sel, expanded, leaf, row, hasFocus);
+            if (value instanceof StageTreeNode) {
+                StageTreeNode node = (StageTreeNode) value;
+                this.setToolTipText(node.getStage().getOp().getDescription());
+            }
+            else if (value instanceof ParameterValueTreeNode) {
+                ParameterValueTreeNode node = (ParameterValueTreeNode) value;
+                this.setToolTipText(node.getParameterValue().getParameter()
+                        .getDescription());
+                if (!node.getParameterValue().isEnabled()) {
+                    rc.setText("(" + rc.getText() + ")");
+                }
+            }
+            return rc;
         }
-    }        
+    }
 }

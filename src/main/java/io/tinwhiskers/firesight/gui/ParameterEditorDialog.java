@@ -4,102 +4,148 @@ import io.tinwhiskers.firesight.gui.Pipeline.Stage.ParameterValue;
 
 import java.awt.Frame;
 
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public class ParameterEditorDialog {
-    public static JsonElement show(Frame owner, ParameterValue pv) {
+    public static boolean show(Frame owner, ParameterValue pv) {
         String title = "Set " + pv.getParameter().getName();
         String message = breakLongString(pv.getParameter().getDescription(), 60);
         switch (pv.getParameter().getType()) {
             case Boolean: {
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JCheckBox valueComponent = new JCheckBox(pv.getParameter().getName(), pv.getValue().getAsBoolean());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message, 
+                        new Object[] { message, valueComponent }, 
                         title, 
+                        JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
-                        new Object[] { Boolean.TRUE, Boolean.FALSE}, 
-                        pv.getValue().getAsBoolean());
-                if (ret == null) {
-                    return null;
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
-                return new JsonPrimitive((Boolean) ret);
+                pv.setEnabled(enabledCheckbox.isSelected());
+                pv.setValue(new JsonPrimitive(valueComponent.isSelected()));
+                return true;
             }
             case String: {
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JTextField valueComponent = new JTextField(pv.getValue().getAsString());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message, 
-                        pv.getValue().getAsString());
-                if (ret == null) {
-                    return null;
+                        new Object[] { message, valueComponent }, 
+                        title, 
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, 
+                        null, 
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
-                return new JsonPrimitive((String) ret);
+                pv.setEnabled(enabledCheckbox.isSelected());
+                pv.setValue(new JsonPrimitive(valueComponent.getText()));
+                return true;
             }
             case Number: {
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JTextField valueComponent = new JTextField(pv.getValue().getAsString());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message,
-                        pv.getValue().getAsString());
-                if (ret == null) {
-                    return null;
+                        new Object[] { message, valueComponent }, 
+                        title, 
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, 
+                        null, 
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
-                return new JsonPrimitive(new Double((String) ret));
+                pv.setEnabled(enabledCheckbox.isSelected());
+                pv.setValue(new JsonPrimitive(new Double(valueComponent.getText())));
+                return true;
             }
             case StringEnum: {
                 Object[] options = new Object[pv.getParameter().getOptions().size()];
                 for (int i = 0; i < options.length; i++) {
                     options[i] = pv.getParameter().getOptions().get(i).getAsString();
                 }
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JComboBox valueComponent = new JComboBox(options);
+                valueComponent.setSelectedItem(pv.getValue().getAsString());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message, 
+                        new Object[] { message, valueComponent }, 
                         title, 
+                        JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
-                        options, 
-                        pv.getValue().getAsString());
-                if (ret == null) {
-                    return null;
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
-                return new JsonPrimitive((String) ret);
+                pv.setEnabled(enabledCheckbox.isSelected());
+                pv.setValue(new JsonPrimitive((String) valueComponent.getSelectedItem()));
+                return true;
             }
             case NumberEnum: {
                 Object[] options = new Object[pv.getParameter().getOptions().size()];
                 for (int i = 0; i < options.length; i++) {
                     options[i] = pv.getParameter().getOptions().get(i).getAsDouble();
                 }
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JComboBox valueComponent = new JComboBox(options);
+                valueComponent.setSelectedItem(pv.getValue().getAsDouble());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message, 
+                        new Object[] { message, valueComponent }, 
                         title, 
+                        JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE, 
                         null, 
-                        options, 
-                        pv.getValue().getAsDouble());
-                if (ret == null) {
-                    return null;
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
-                return new JsonPrimitive((Double) ret);
+                pv.setEnabled(enabledCheckbox.isSelected());
+                pv.setValue(new JsonPrimitive((Double) valueComponent.getSelectedItem()));
+                return true;
             }
             case NumberArray: {
-                Object ret = JOptionPane.showInputDialog(
+                JCheckBox enabledCheckbox = new JCheckBox("Enabled?", pv.isEnabled());
+                JTextField valueComponent = new JTextField(pv.getValue().toString());
+                int ret = JOptionPane.showOptionDialog(
                         owner, 
-                        message, 
-                        pv.getValue().toString());
-                if (ret == null) {
-                    return null;
+                        new Object[] { message, valueComponent }, 
+                        title, 
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, 
+                        null, 
+                        new Object[] { "OK", "Cancel", enabledCheckbox }, 
+                        "OK");
+                if (ret != 0) {
+                    return false;
                 }
+                pv.setEnabled(enabledCheckbox.isSelected());
                 try {
                     JsonParser parser = new JsonParser();
-                    return parser.parse((String) ret).getAsJsonArray();
+                    pv.setValue(parser.parse(valueComponent.getText()).getAsJsonArray());
                 }
                 catch (Exception e) {
-                    return null;
+                    return false;
                 }
+                return true;
             }
             default:
                 throw new Error("Unrecognized type " + pv.getParameter().getType());

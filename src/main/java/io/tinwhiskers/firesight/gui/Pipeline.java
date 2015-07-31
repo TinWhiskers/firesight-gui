@@ -88,6 +88,10 @@ public class Pipeline {
         public void setParameterValue(String param, JsonPrimitive value) {
             parameters.get(param).setValue(value);
         }
+        
+        public void setParameterValueEnabled(String param, boolean enabled) {
+            parameters.get(param).setEnabled(enabled);
+        }
 
         @Override
         public String toString() {
@@ -99,7 +103,9 @@ public class Pipeline {
             o.addProperty("name", name);
             o.addProperty("op", op.getName());
             for (ParameterValue pv : parameters.values()) {
-                o.add(pv.getParameter().getName(), pv.toJson());
+                if (pv.isEnabled()) {
+                    o.add(pv.getParameter().getName(), pv.toJson());
+                }
             }
             return o;
         }
@@ -107,6 +113,7 @@ public class Pipeline {
         public static class ParameterValue {
             private Parameter parameter;
             private JsonElement value;
+            private boolean enabled = false;
             
             public ParameterValue(Parameter parameter, JsonElement value) {
                 this.parameter = parameter;
@@ -163,6 +170,15 @@ public class Pipeline {
                 }
                 this.value = value;
             }
+            
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
             
             public boolean isBoolean(JsonElement e) {
                 return e.isJsonPrimitive() && e.getAsJsonPrimitive().isBoolean();
