@@ -1,6 +1,7 @@
 [
     "Canny.json",
     "Circle.json",
+	"detectParts.json",
     "FireSight.json",
     "HoleRecognizer.json",
     "HoughCircles.json",
