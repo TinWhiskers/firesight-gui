@@ -7,10 +7,15 @@ import io.tinwhiskers.firesight.gui.PipelineTreeModel.StageTreeNode;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.Writer;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -27,7 +32,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.google.gson.JsonElement;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("serial")
 public class PipelinePanel extends JPanel {
@@ -55,6 +61,12 @@ public class PipelinePanel extends JPanel {
         
         JButton moveDownButton = new JButton(moveStageDown);
         toolBar.add(moveDownButton);
+        
+        JButton btnSave = new JButton(savePipeline);
+        toolBar.add(btnSave);
+        
+        JButton btnLoad = new JButton(loadPipeline);
+        toolBar.add(btnLoad);
         
         JScrollPane scrollPane = new JScrollPane();
         add(scrollPane, BorderLayout.CENTER);
@@ -142,6 +154,78 @@ public class PipelinePanel extends JPanel {
         }
     };
     
+    private Action savePipeline = new AbstractAction("Save") {
+        public void actionPerformed(ActionEvent e) {
+            FileDialog fileDialog = new FileDialog((Frame) getTopLevelAncestor(), "Save Pipeline As...",
+                    FileDialog.SAVE);
+            fileDialog.setFilenameFilter(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase().endsWith(".json");
+                }
+            });
+            fileDialog.setVisible(true);
+            try {
+                String filename = fileDialog.getFile();
+                if (filename == null) {
+                    return;
+                }
+                if (!filename.toLowerCase().endsWith(".json")) {
+                    filename = filename + ".json";
+                }
+                File file = new File(new File(fileDialog.getDirectory()), filename);
+//                if (file.exists()) {
+//                    int ret = JOptionPane.showConfirmDialog(
+//                            getTopLevelAncestor(), 
+//                            file.getName() + " already exists. Do you want to replace it?", 
+//                            "Replace file?", 
+//                            JOptionPane.YES_NO_OPTION, 
+//                            JOptionPane.WARNING_MESSAGE);
+//                    if (ret != JOptionPane.YES_OPTION) {
+//                        return;
+//                    }
+//                }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String json = gson.toJson(pipelineTreeModel.getPipeline().toJson());
+                System.out.println(json);
+                
+                Writer writer = new FileWriter(file);
+                writer.write(json);
+                writer.close();
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    };
+    
+    private Action loadPipeline = new AbstractAction("Load") {
+        public void actionPerformed(ActionEvent e) {
+            FileDialog fileDialog = new FileDialog((Frame) getTopLevelAncestor(), "Load Pipeline...",
+                    FileDialog.LOAD);
+            fileDialog.setFilenameFilter(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase().endsWith(".json");
+                }
+            });
+            fileDialog.setVisible(true);
+            try {
+                String filename = fileDialog.getFile();
+                if (filename == null) {
+                    return;
+                }
+                File file = new File(new File(fileDialog.getDirectory()), filename);
+                pipelineTreeModel.loadPipeline(file);
+                pipelineTree.expandPath(new TreePath(pipelineTreeModel.getRoot()));
+                main.generateOutput();
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    };
+
     public class TooltipTreeRenderer extends DefaultTreeCellRenderer {
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value,

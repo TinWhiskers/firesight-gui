@@ -29,6 +29,7 @@
     "normalize.json",
     "putText.json",
     "rectangle.json",
+    "rectFilter.json",
     "resize.json",
     "stageImage.json",
     "threshold.json",

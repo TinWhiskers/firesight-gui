@@ -1,0 +1,33 @@
+{
+    "name" : "rectFilter", 
+    "description" : "Filter rectangles by width and height.",
+    "parameters" : [
+        { 
+           "name":"model",
+           "default":"",
+           "description":""
+        }, 
+        { 
+           "name":"min_width",
+           "default":0,
+           "description":""
+        }, 
+        { 
+           "name":"max_width",
+           "default":0,
+           "description":""
+        }, 
+        { 
+           "name":"min_height",
+           "default":0,
+           "description":""
+        }, 
+        { 
+           "name":"max_height",
+           "default":0,
+           "description":""
+        } 
+    ]
+}
+
+

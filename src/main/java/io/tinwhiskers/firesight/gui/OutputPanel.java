@@ -3,6 +3,10 @@ package io.tinwhiskers.firesight.gui;
 import io.tinwhiskers.firesight.gui.Pipeline.Stage;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Map;
 
@@ -31,6 +35,20 @@ public class OutputPanel extends JPanel {
         outputImagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         outputImagesList.setCellRenderer(new IconListRenderer(outputImagesList));
         scrollPane_2.setViewportView(outputImagesList);
+        
+        outputImagesList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    try {
+                        Desktop.getDesktop().open(outputImagesList.getSelectedValue());
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
     }
     
     public void setOutputFiles(Map<Stage, File> output) {
