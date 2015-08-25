@@ -1,7 +1,10 @@
 package io.tinwhiskers.firesight.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.prefs.Preferences;
@@ -58,6 +61,19 @@ public class DirectoryInputPanel extends JPanel {
         });
         scrollPane_1.setViewportView(inputImagesList);
         
+        inputImagesList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    try {
+                        Desktop.getDesktop().open(inputImagesList.getSelectedValue());
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         
         String defaultInputDirectoryPath = Preferences.userNodeForPackage(getClass()).get("inputDirectory", null);
         if (defaultInputDirectoryPath != null) {
