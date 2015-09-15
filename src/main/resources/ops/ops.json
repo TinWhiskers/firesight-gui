@@ -31,6 +31,7 @@
     "rectangle.json",
     "rectFilter.json",
     "resize.json",
+    "split.json",
     "stageImage.json",
     "threshold.json",
     "transparent.json",

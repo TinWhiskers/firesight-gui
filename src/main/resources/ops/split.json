@@ -1,0 +1,11 @@
+{
+    "name" : "split", 
+    "description" : "Copies specified channels from input arrays to the specified channels of output arrays.",
+    "parameters" : [
+        {
+           "name":"fromTo",
+           "default":[2,0],
+           "description":"array of index pairs specifying which channels are copied and where; fromTo[k*2] is a 0-based index of the input channel in src, fromTo[k*2+1] is an index of the output channel in dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to src[0].channels()-1, the second input image channels are indexed from src[0].channels() to src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image channels; as a special case, when fromTo[k*2] is negative, the corresponding output channel is filled with zero."
+        }
+    ]
+}

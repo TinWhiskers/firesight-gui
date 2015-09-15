@@ -39,6 +39,7 @@ public class ParameterEditorDialog {
             case String: {
                 JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JTextField valueComponent = new JTextField(pv.getValue().getAsString());
+                valueComponent.requestFocus();
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
                         new Object[] { message, valueComponent }, 
@@ -58,6 +59,7 @@ public class ParameterEditorDialog {
             case Number: {
                 JCheckBox enabledCheckbox = new JCheckBox("Enabled?", true);
                 JTextField valueComponent = new JTextField(pv.getValue().getAsString());
+                valueComponent.requestFocus();
                 int ret = JOptionPane.showOptionDialog(
                         owner, 
                         new Object[] { message, valueComponent }, 
